@@ -42,3 +42,4 @@ namespace BloggingPlatform.Models
         }
     }
 }
+//check if git email is set properly now
