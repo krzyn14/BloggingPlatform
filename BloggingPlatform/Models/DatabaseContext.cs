@@ -9,6 +9,13 @@ namespace BloggingPlatform.Models
         public DbSet<BlogPost> BlogPosts { get; set; }
 
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Chinook");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +33,7 @@ namespace BloggingPlatform.Models
             {
                 bp.Property(bpi => bpi.Title).IsRequired().HasMaxLength(100);
                 bp.Property(bpi => bpi.Content).IsRequired();
-                bp.Property(bpi => bpi.CreatedDate).IsRequired().HasDefaultValue(DateTime.Now); //hasfedaultvaluesql eventually
+                bp.Property(bpi => bpi.CreatedDate).IsRequired().HasDefaultValue(DateTime.Now); //hasfedaultvaluesql optionally
                 bp.Property(bpi => bpi.UpdatedDate).HasDefaultValue(null);
                 bp.HasOne(p => p.User)
                 .WithMany(u => u.Posts)
