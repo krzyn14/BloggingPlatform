@@ -20,9 +20,13 @@ namespace BloggingPlatform.Repository
             return _databaseContext.Users.OrderBy(x => x.Id).ToList();
         }
 
-        public void UpdateUserMail(int Id)
+        public void UpdateUserMail(int Id, string mail)
         {
-            throw new NotImplementedException();
+            var user = _databaseContext.Users.FirstOrDefault(x => x.Id == Id);  
+            user.Email = mail;
+
+            _databaseContext.Users.Update(user); 
+            _databaseContext.SaveChanges();
         } 
 
         public bool UserExists(int Id)

@@ -6,7 +6,7 @@ namespace BloggingPlatform.Interfaces
     {
         ICollection<User> GetUsers();
         User GetUserById(int Id);
-        void UpdateUserMail(int Id);  
+        void UpdateUserMail(int Id, string mail);  
         bool UserExists(int Id);
     }
 }

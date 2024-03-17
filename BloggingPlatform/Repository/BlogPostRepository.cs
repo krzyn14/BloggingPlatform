@@ -22,8 +22,16 @@ namespace BloggingPlatform.Repository
 
         public void EditBlogPost(int Id, string? content, string? title, int userId)
         {
-            //tbd - first let's think what should be edited
-            throw new NotImplementedException();
+            var post = _databaseContext.BlogPosts.Where(x => x.UserId == userId).FirstOrDefault(x => x.Id == Id); 
+
+            if (content != null) 
+                post.Content = content; 
+            
+            if(title != null) 
+                post.Title = title;
+
+            _databaseContext.Update(post);
+            _databaseContext.SaveChanges();
         }
 
         public ICollection<BlogPost> GetBlogPosts()
@@ -33,8 +41,10 @@ namespace BloggingPlatform.Repository
 
         public void RemoveBlogPost(int Id, int userId)
         {
-            var blogPost = _databaseContext.BlogPosts.FirstOrDefault(x => x.Id == Id);
+            var blogPost = _databaseContext.BlogPosts.Where(x => x.UserId == userId).FirstOrDefault(x => x.Id == Id);
+
             _databaseContext.Remove(blogPost);
+            _databaseContext.SaveChanges();
         }
 
         public BlogPost GetBlogPost(int id)
