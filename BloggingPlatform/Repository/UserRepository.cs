@@ -19,5 +19,15 @@ namespace BloggingPlatform.Repository
         {
             return _databaseContext.Users.OrderBy(x => x.Id).ToList();
         }
+
+        public void UpdateUserMail(int Id)
+        {
+            throw new NotImplementedException();
+        } 
+
+        public bool UserExists(int Id)
+        {
+            return _databaseContext.Users.Any(x => x.Id == Id);
+        }
     }
 }
