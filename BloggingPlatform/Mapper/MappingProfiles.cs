@@ -8,8 +8,12 @@ namespace BloggingPlatform.Mapper
     { 
         public MappingProfiles() 
         {
-            CreateMap<User, UserDto>(); 
-            CreateMap<BlogPost, BlogPostDto>();
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+            CreateMap<BlogPost, BlogPostDto>(); 
+            CreateMap<BlogPostDto, BlogPost>(); 
+            CreateMap<BlogPostUpdateDto, BlogPost>(); 
+            CreateMap<BlogPost, BlogPostUpdateDto>();
         }
     }
 }

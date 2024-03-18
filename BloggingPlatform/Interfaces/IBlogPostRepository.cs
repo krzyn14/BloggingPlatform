@@ -5,11 +5,12 @@ namespace BloggingPlatform.Interfaces
     public interface IBlogPostRepository
     {
         ICollection<BlogPost> GetBlogPosts(); 
-        void AddBlogPost(string title, string content, int userId); 
-        void RemoveBlogPost(int Id, int userId); 
-        void EditBlogPost(int Id, string? content, string? title, int userId);
+        bool AddBlogPost(BlogPost blogPost); 
+        bool RemoveBlogPost(BlogPost blogPost); 
+        bool EditBlogPost(int postId, BlogPost blogPost);
         BlogPost GetBlogPost(int id); 
         ICollection<BlogPost> GetBlogPostsByUserId(int id);
-        bool BlogPostExists(int id);
+        bool BlogPostExists(int id); 
+        bool Save();
     }
 }

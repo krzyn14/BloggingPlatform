@@ -1,10 +1,9 @@
 ﻿namespace BloggingPlatform.Dto
 {
-    public class BlogPostDto
+    public class BlogPostUpdateDto
     {
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime CreatedDate { get; set; } 
         public int UserId { get; set; }
     }
 }

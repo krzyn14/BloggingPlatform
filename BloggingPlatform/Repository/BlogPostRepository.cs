@@ -1,5 +1,6 @@
 ﻿using BloggingPlatform.Interfaces;
 using BloggingPlatform.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloggingPlatform.Repository
 {
@@ -12,54 +13,58 @@ namespace BloggingPlatform.Repository
             _databaseContext = databaseContext;
         }
 
-        public void AddBlogPost(string title, string content, int userId)
+        public bool AddBlogPost(BlogPost blogPost)
         {
-            var newPost = new BlogPost { Title = title, Content = content, UserId = userId}; 
+            _databaseContext.Add(blogPost);
 
-            _databaseContext.Add(newPost);
-            _databaseContext.SaveChanges();
+            return Save();
         }
 
-        public void EditBlogPost(int Id, string? content, string? title, int userId)
+        public bool EditBlogPost(int postId, BlogPost blogPost)
         {
-            var post = _databaseContext.BlogPosts.Where(x => x.UserId == userId).FirstOrDefault(x => x.Id == Id); 
+            var originalPost = _databaseContext.BlogPosts.AsNoTracking().FirstOrDefault(p => p.Id == postId); 
 
-            if (content != null) 
-                post.Content = content; 
-            
-            if(title != null) 
-                post.Title = title;
+            blogPost.Id = postId;
+            blogPost.CreatedDate = originalPost.CreatedDate;
+            blogPost.UpdatedDate = DateTime.Now;
 
-            _databaseContext.Update(post);
-            _databaseContext.SaveChanges();
+            _databaseContext.Update(blogPost);
+
+            return Save();
         }
 
         public ICollection<BlogPost> GetBlogPosts()
         {
-            return _databaseContext.BlogPosts.OrderBy(x => x.Id).ToList();
+            return _databaseContext.BlogPosts.AsNoTracking().OrderBy(x => x.Id).ToList();
         }
 
-        public void RemoveBlogPost(int Id, int userId)
+        public bool RemoveBlogPost(BlogPost blogPost)
         {
-            var blogPost = _databaseContext.BlogPosts.Where(x => x.UserId == userId).FirstOrDefault(x => x.Id == Id);
-
             _databaseContext.Remove(blogPost);
-            _databaseContext.SaveChanges();
+
+            return Save();
         }
 
         public BlogPost GetBlogPost(int id)
         {
-            return _databaseContext.BlogPosts.FirstOrDefault(x => x.Id == id);
+            return _databaseContext.BlogPosts.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
         public ICollection<BlogPost> GetBlogPostsByUserId(int userId)
         {
-            return _databaseContext.BlogPosts.Where(x => x.UserId == userId).OrderBy(x => x.Id).ToList();
+            return _databaseContext.BlogPosts.AsNoTracking().Where(x => x.UserId == userId).OrderBy(x => x.Id).ToList();
         }
 
         public bool BlogPostExists(int blogPostId)
         {
-            return _databaseContext.BlogPosts.Any(x => x.Id == blogPostId);
+            return _databaseContext.BlogPosts.AsNoTracking().Any(x => x.Id == blogPostId);
+        }
+
+        public bool Save()
+        {
+            var saved = _databaseContext.SaveChanges();
+
+            return saved > 0 ? true : false;
         }
     }
 }

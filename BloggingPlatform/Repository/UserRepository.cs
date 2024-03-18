@@ -10,6 +10,12 @@ namespace BloggingPlatform.Repository
         { 
             _databaseContext = databaseContext;
         }
+
+        public bool CreateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
         public User GetUserById(int Id)
         {
             return _databaseContext.Users.FirstOrDefault(u => u.Id == Id); 
@@ -18,6 +24,11 @@ namespace BloggingPlatform.Repository
         public ICollection<User> GetUsers()
         {
             return _databaseContext.Users.OrderBy(x => x.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateUserMail(int Id, string mail)
