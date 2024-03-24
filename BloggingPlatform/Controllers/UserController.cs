@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BloggingPlatform.Interfaces;
-using BloggingPlatform.Repository;
 using BloggingPlatform.Models;
 using BloggingPlatform.Dto;
 using AutoMapper;
@@ -19,7 +18,7 @@ namespace BloggingPlatform.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("getUsers")]
         [ProducesResponseType(200, Type = typeof(ICollection<User>))]
         public IActionResult GetUsers()
         {
@@ -31,13 +30,13 @@ namespace BloggingPlatform.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("getUser/{userId}")]
         [ProducesResponseType(200, Type = typeof(User))]
         [ProducesResponseType(400)]
         public IActionResult GetUser(int userId)
         {
             if(!_userRepository.UserExists(userId)) 
-                return NotFound(); 
+                return NotFound("There is no user with such ID"); 
 
             var user = _mapper.Map<UserDto>(_userRepository.GetUserById(userId)); 
 
@@ -46,5 +45,55 @@ namespace BloggingPlatform.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost("createUser")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateUser([FromBody] UserCreateDto userToCreate)
+        {
+            if(userToCreate == null)
+                return BadRequest(ModelState);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState); 
+
+            if(!_userRepository.IsEmailUnique(userToCreate.Email) || !userToCreate.Email.Contains('@') ) {
+                return BadRequest("Wrong email input!"); //for security reasons this error message shouldn't leak information that such an email already exists
+            }
+
+            var user = _mapper.Map<User>(userToCreate);
+
+            if (!_userRepository.CreateUser(user))
+            {
+                ModelState.AddModelError("", "Something went wrong, the post wasn't saved");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("User successfully created!");
+        }
+
+        [HttpDelete("deleteUser")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteUser(int userId)
+        {
+            if(!_userRepository.UserExists(userId))
+                return NotFound("There is no user with such ID"); 
+
+            var userToDelete = _userRepository.GetUserById(userId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_userRepository.RemoveUser(userToDelete))
+            {
+                ModelState.AddModelError("ErrorMessage", "Something went wrong!");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("User successfully removed!");
+        }
+
     }
 }

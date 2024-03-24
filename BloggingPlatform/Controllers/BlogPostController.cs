@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BloggingPlatform.Models;
 using BloggingPlatform.Interfaces;
-using BloggingPlatform.Mapper;
 using AutoMapper;
 using BloggingPlatform.Dto;
-using BloggingPlatform.Repository;
 
 namespace BloggingPlatform.Controllers
 {
@@ -41,7 +39,7 @@ namespace BloggingPlatform.Controllers
         public IActionResult GetBlogPost(int postId)
         {
             if (!_blogPostRepository.BlogPostExists(postId))
-                return NotFound();
+                return NotFound("There is no such a post");
 
             var post = _mapper.Map<BlogPostDto>(_blogPostRepository.GetBlogPost(postId));
 
@@ -57,7 +55,7 @@ namespace BloggingPlatform.Controllers
         public IActionResult GetBlogPostsByUserId(int userId)
         {
             if (!_userRepository.UserExists(userId))
-                return NotFound();
+                return NotFound("User not found");
 
             var posts = _mapper.Map<List<BlogPostDto>>(_blogPostRepository.GetBlogPostsByUserId(userId));
 
@@ -72,17 +70,20 @@ namespace BloggingPlatform.Controllers
         [ProducesResponseType(400)]
         public IActionResult CreateBlogPost([FromBody] BlogPostDto blogPostToCreate)
         {
-            if (blogPostToCreate == null || !_userRepository.UserExists(blogPostToCreate.UserId)) 
-                return BadRequest(ModelState);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid || blogPostToCreate == null)
+                return BadRequest("Wrong request, ");
+
+            if (!_userRepository.UserExists(blogPostToCreate.UserId) && blogPostToCreate.UserId != null)
+            {
+               return NotFound("User not found");
+            }
 
             var blogPost = _mapper.Map<BlogPost>(blogPostToCreate);
 
             if(!_blogPostRepository.AddBlogPost(blogPost))
             {
-                ModelState.AddModelError("", "Something went wrong, the post wasn't saved");
+                ModelState.AddModelError("ErrorMessage", "Something went wrong, the post wasn't saved");
                 return StatusCode(500, ModelState);
             }
 
@@ -93,35 +94,31 @@ namespace BloggingPlatform.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateBlogPost(int postId, [FromBody]BlogPostUpdateDto blogPostUpdated)
+        public IActionResult UpdateBlogPost(int postId, [FromBody] BlogPostUpdateDto values)
         {
-            if (blogPostUpdated == null) 
-                return BadRequest(ModelState); 
 
-            if (!_userRepository.UserExists(blogPostUpdated.UserId))
-                return BadRequest(ModelState);
+            if (!_blogPostRepository.BlogPostExists(postId))
+                return NotFound("Post not found"); 
 
-            if (!_blogPostRepository.BlogPostExists(postId)) 
-                return NotFound();
+            if (!_userRepository.UserExists(values.UserId))
+                return NotFound("User not Found");
 
-            if (!(_blogPostRepository.GetBlogPost(postId).UserId == blogPostUpdated.UserId))
+            if (!(_blogPostRepository.GetBlogPost(postId).UserId == values.UserId))
             {
-                ModelState.AddModelError("", "You are not authorized to perform this action");
-                return StatusCode(403, ModelState);
+                //ModelState.AddModelError("Error", "You are not authorized to perform this action");
+                return StatusCode(403, "You are not authorized to perform this action");
             }
                 
             if(!ModelState.IsValid) 
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            var blogPostMap = _mapper.Map<BlogPost>(blogPostUpdated);
-
-            if(!_blogPostRepository.EditBlogPost(postId, blogPostMap))
+            if(!_blogPostRepository.EditBlogPost(postId, values.Title, values.Content))
             {
-                ModelState.AddModelError("", "Something went wrong!"); 
+                ModelState.AddModelError("ErrorMessage", "Something went wrong!"); 
                 return StatusCode(500, ModelState);
             }
 
-            return NoContent();
+            return Ok("Blog Post successfully updated");
         }
 
         [HttpDelete("deleteBlogPost/{postId}")]
@@ -130,18 +127,18 @@ namespace BloggingPlatform.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeleteBlogPost(int postId, int userId)
         {
-            if (!_userRepository.UserExists(userId))
-                return BadRequest(ModelState);
-
             if (!_blogPostRepository.BlogPostExists(postId))
                 return NotFound();
+
+            if (!_userRepository.UserExists(userId))
+                return BadRequest(ModelState);
 
             var blogPostToDelete = _blogPostRepository.GetBlogPost(postId);
 
             if (!(blogPostToDelete.UserId == userId))
             {
-                ModelState.AddModelError("", "You are not authorized to perform this action");
-                return StatusCode(403, ModelState);
+               // ModelState.AddModelError("Error", "You are not authorized to perform this action");
+                return StatusCode(403, "You are not authorized to perform this action");
             }
 
             if (!ModelState.IsValid)
@@ -149,11 +146,11 @@ namespace BloggingPlatform.Controllers
 
             if (!_blogPostRepository.RemoveBlogPost(blogPostToDelete))
             {
-                ModelState.AddModelError("", "Something went wrong!");
+                ModelState.AddModelError("ErrorMessage", "Something went wrong!");
                 return StatusCode(500, ModelState);
             }
 
-            return NoContent();
+            return Ok("Blog Post succesfully updated");
         }
 
     }

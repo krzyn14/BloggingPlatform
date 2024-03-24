@@ -1,5 +1,6 @@
 ﻿using BloggingPlatform.Interfaces;
 using BloggingPlatform.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloggingPlatform.Repository
 {
@@ -13,7 +14,16 @@ namespace BloggingPlatform.Repository
 
         public bool CreateUser(User user)
         {
-            throw new NotImplementedException();
+            _databaseContext.Users.Add(user);
+
+            return Save();
+        } 
+
+        public bool RemoveUser(User user) 
+        { 
+            _databaseContext.Users.Remove(user); 
+
+            return Save();
         }
 
         public User GetUserById(int Id)
@@ -25,20 +35,22 @@ namespace BloggingPlatform.Repository
         {
             return _databaseContext.Users.OrderBy(x => x.Id).ToList();
         }
+        public bool IsEmailUnique(string email)
+        {
+            var user = _databaseContext.Users.FirstOrDefault(x => x.Email == email);
+
+            if (user != null)
+                return false; 
+
+            return true;
+        }
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            var saved = _databaseContext.SaveChanges();
+
+            return saved > 0 ? true : false;
         }
-
-        public void UpdateUserMail(int Id, string mail)
-        {
-            var user = _databaseContext.Users.FirstOrDefault(x => x.Id == Id);  
-            user.Email = mail;
-
-            _databaseContext.Users.Update(user); 
-            _databaseContext.SaveChanges();
-        } 
 
         public bool UserExists(int Id)
         {

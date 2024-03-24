@@ -9,6 +9,6 @@ namespace BloggingPlatform.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public User User { get; set; } 
-        public int UserId { get; set; } //shadow foreign key propery can be used but implementing id is more comfortable for filtering 
+        public int UserId { get; set; } 
     }
 }

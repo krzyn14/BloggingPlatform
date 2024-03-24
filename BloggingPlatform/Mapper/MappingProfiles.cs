@@ -10,10 +10,12 @@ namespace BloggingPlatform.Mapper
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<User, UserCreateDto>();
+            CreateMap<UserCreateDto, User>();
             CreateMap<BlogPost, BlogPostDto>(); 
             CreateMap<BlogPostDto, BlogPost>(); 
             CreateMap<BlogPostUpdateDto, BlogPost>(); 
-            CreateMap<BlogPost, BlogPostUpdateDto>();
+            CreateMap<BlogPost, BlogPostUpdateDto>(); 
         }
     }
 }

@@ -20,15 +20,15 @@ namespace BloggingPlatform.Repository
             return Save();
         }
 
-        public bool EditBlogPost(int postId, BlogPost blogPost)
+        public bool EditBlogPost(int postId, string title, string content)
         {
-            var originalPost = _databaseContext.BlogPosts.AsNoTracking().FirstOrDefault(p => p.Id == postId); 
+            var post = _databaseContext.BlogPosts.FirstOrDefault(p => p.Id == postId);
 
-            blogPost.Id = postId;
-            blogPost.CreatedDate = originalPost.CreatedDate;
-            blogPost.UpdatedDate = DateTime.Now;
+            post.Title = title;
+            post.Content = content;
+            post.UpdatedDate = DateTime.Now;
 
-            _databaseContext.Update(blogPost);
+            _databaseContext.Update(post);
 
             return Save();
         }
