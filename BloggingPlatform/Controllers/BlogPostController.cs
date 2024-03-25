@@ -106,7 +106,7 @@ namespace BloggingPlatform.Controllers
             if (!(_blogPostRepository.GetBlogPost(postId).UserId == values.UserId))
             {
                 //ModelState.AddModelError("Error", "You are not authorized to perform this action");
-                return StatusCode(403, "You are not authorized to perform this action");
+                return Forbid("You are not authorized to perform this action");
             }
                 
             if(!ModelState.IsValid) 
@@ -128,17 +128,17 @@ namespace BloggingPlatform.Controllers
         public IActionResult DeleteBlogPost(int postId, int userId)
         {
             if (!_blogPostRepository.BlogPostExists(postId))
-                return NotFound();
+                return NotFound("Post not found");
 
             if (!_userRepository.UserExists(userId))
-                return BadRequest(ModelState);
+                return NotFound("User not found!");
 
             var blogPostToDelete = _blogPostRepository.GetBlogPost(postId);
 
             if (!(blogPostToDelete.UserId == userId))
             {
                // ModelState.AddModelError("Error", "You are not authorized to perform this action");
-                return StatusCode(403, "You are not authorized to perform this action");
+                return Forbid("You are not authorized to perform this action");
             }
 
             if (!ModelState.IsValid)
@@ -150,7 +150,7 @@ namespace BloggingPlatform.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Blog Post succesfully updated");
+            return Ok("Blog Post succesfully removed");
         }
 
     }
