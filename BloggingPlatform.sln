@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingPlatform", "BloggingPlatform\BloggingPlatform.csproj", "{D6F4728B-6A84-48BB-B12D-82CB7878D137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingPlatform.Tests", "BloggingPlatform.Tests\BloggingPlatform.Tests.csproj", "{F5BB14B9-CB0D-49CB-A0B0-A8F2C7B82ADA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingPlatform.Tests", "BloggingPlatform.Tests\BloggingPlatform.Tests.csproj", "{F5BB14B9-CB0D-49CB-A0B0-A8F2C7B82ADA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -48,7 +48,7 @@ namespace BloggingPlatform.Tests
             {
                 Content = "test",
                 Title = "Title",
-                UserId = 1
+                UserId = 3
             }; 
 
             var postToUpdateId = 2;
@@ -57,7 +57,7 @@ namespace BloggingPlatform.Tests
             var createdResponse = _blogPostController.UpdateBlogPost(postToUpdateId, values);
 
             //Assert 
-            Assert.IsType<ForbidResult>(createdResponse as ForbidResult);
+            Assert.IsType<BadRequestObjectResult>(createdResponse as BadRequestObjectResult);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace BloggingPlatform.Tests
             var createdResponse = _blogPostController.DeleteBlogPost(postToDelete, user);
 
             //Assert 
-            Assert.IsType<ForbidResult>(createdResponse as ForbidResult);
+            Assert.IsType<BadRequestObjectResult>(createdResponse as BadRequestObjectResult);
         }
 
         [Fact]
