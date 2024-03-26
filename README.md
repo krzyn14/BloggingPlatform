@@ -19,11 +19,11 @@
 -	Seed the database with at least two users and a few sample blog posts for each user using EF migrations or a data seeding mechanism.
 
 3. API:
--Create an API controller for managing blog posts.
-   --	Implement CRUD (Create, Read, Update, Delete) operations for blog posts.
+- Create an API controller for managing blog posts.
+   -	Implement CRUD (Create, Read, Update, Delete) operations for blog posts.
    -	Ensure that users can only edit/delete their own blog posts.
--Create an API controller for managing user profiles.
-  --	Implement endpoints to retrieve user profiles and their associated blog posts.
+- Create an API controller for managing user profiles.
+  -	Implement endpoints to retrieve user profiles and their associated blog posts.
 -	Use appropriate HTTP methods (GET, POST, PUT, DELETE) and status codes.
 -	Implement data validation and error handling in the API.
 
