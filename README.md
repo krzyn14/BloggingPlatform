@@ -1,4 +1,4 @@
-**Installation and running the app: **
+**Installation and running the app:**
 1. Pull the repository
 2. Seed data to the db
 3. Now you can run the application and test API manually or run unit tests for Remove and Edit posts methods (instruction below)
