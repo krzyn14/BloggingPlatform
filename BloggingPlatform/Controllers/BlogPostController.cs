@@ -105,7 +105,6 @@ namespace BloggingPlatform.Controllers
 
             if (!(_blogPostRepository.GetBlogPost(postId).UserId == values.UserId))
             {
-                //ModelState.AddModelError("Error", "You are not authorized to perform this action");
                 return Forbid("You are not authorized to perform this action");
             }
                 
@@ -137,7 +136,6 @@ namespace BloggingPlatform.Controllers
 
             if (!(blogPostToDelete.UserId == userId))
             {
-               // ModelState.AddModelError("Error", "You are not authorized to perform this action");
                 return Forbid("You are not authorized to perform this action");
             }
 

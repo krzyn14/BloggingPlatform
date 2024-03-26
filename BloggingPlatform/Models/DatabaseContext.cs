@@ -33,7 +33,7 @@ namespace BloggingPlatform.Models
             {
                 bp.Property(bpi => bpi.Title).IsRequired().HasMaxLength(100);
                 bp.Property(bpi => bpi.Content).IsRequired();
-                bp.Property(bpi => bpi.CreatedDate).IsRequired().HasDefaultValue(DateTime.Now); //hasfedaultvaluesql optionally
+                bp.Property(bpi => bpi.CreatedDate).IsRequired().HasDefaultValue(DateTime.Now);
                 bp.Property(bpi => bpi.UpdatedDate).HasDefaultValue(null);
                 bp.Property(bpi => bpi.UserId).IsRequired();
                 bp.HasOne(p => p.User)

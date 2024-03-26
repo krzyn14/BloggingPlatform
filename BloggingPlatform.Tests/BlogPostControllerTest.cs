@@ -3,7 +3,6 @@ using BloggingPlatform.Controllers;
 using AutoMapper;
 using BloggingPlatform.Dto;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace BloggingPlatform.Tests
 {

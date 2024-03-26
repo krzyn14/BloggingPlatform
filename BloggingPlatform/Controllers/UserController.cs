@@ -58,7 +58,7 @@ namespace BloggingPlatform.Controllers
                 return BadRequest(ModelState); 
 
             if(!_userRepository.IsEmailUnique(userToCreate.Email) || !userToCreate.Email.Contains('@') ) {
-                return BadRequest("Wrong email input!"); //for security reasons this error message shouldn't leak information that such an email already exists
+                return BadRequest("Wrong email input!"); 
             }
 
             var user = _mapper.Map<User>(userToCreate);

@@ -25,8 +25,8 @@ namespace BloggingPlatform
 
                 blogs.Add(new BlogPost { User = users[0], Content = "Hello World!", Title = "First Post" });
                 blogs.Add(new BlogPost { User = users[1], Content = "I don't like pizza", Title = "Pizza" });
-                blogs.Add(new BlogPost { User = users[2], Content = "I have just met Elon Musk", Title = "WOOW" });
-                blogs.Add(new BlogPost { User = users[3], Content = "Greetings from Greece", Title = "Holidays!" });
+                blogs.Add(new BlogPost { User = users[1], Content = "I have just met Elon Musk", Title = "WOOW" });
+                blogs.Add(new BlogPost { User = users[1], Content = "Greetings from Greece", Title = "Holidays!" });
 
                 databaseContext.Users.AddRange(users);
                 databaseContext.BlogPosts.AddRange(blogs);

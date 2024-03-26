@@ -1,5 +1,6 @@
 ﻿using BloggingPlatform.Interfaces;
 using BloggingPlatform.Models;
+using System.Collections.Immutable;
 
 namespace BloggingPlatform.Tests
 {
@@ -28,7 +29,9 @@ namespace BloggingPlatform.Tests
 
         public bool AddBlogPost(BlogPost blogPost)
         {
-            throw new NotImplementedException(); //we don't need it
+            _posts.Add(blogPost);
+
+            return true;
         }
 
         public bool BlogPostExists(int id)
@@ -38,7 +41,9 @@ namespace BloggingPlatform.Tests
 
         public bool CreateUser(User user)
         {
-            throw new NotImplementedException(); //we don't need it
+            _users.Add(user);
+
+            return true;
         }
 
         public bool EditBlogPost(int postId, string title, string content)
@@ -61,27 +66,32 @@ namespace BloggingPlatform.Tests
 
         public ICollection<BlogPost> GetBlogPosts()
         {
-            throw new NotImplementedException(); //we don't need it 
+            return _posts;
         }
 
         public ICollection<BlogPost> GetBlogPostsByUserId(int id)
         {
-            throw new NotImplementedException();
+            return _posts.Where(x => x.UserId == id).ToImmutableList();
         }
 
         public User GetUserById(int Id)
         {
-            throw new NotImplementedException();
+            return _users.FirstOrDefault(x => x.Id == Id);
         }
 
         public ICollection<User> GetUsers()
         {
-            throw new NotImplementedException();
+            return _users;
         }
 
         public bool IsEmailUnique(string email)
         {
-            throw new NotImplementedException();
+            var user = _users.FirstOrDefault(x => x.Email == email);
+
+            if (user != null)
+                return false; 
+
+            return true;
         }
 
         public bool RemoveBlogPost(BlogPost blogPost)
@@ -93,7 +103,9 @@ namespace BloggingPlatform.Tests
 
         public bool RemoveUser(User user)
         {
-            throw new NotImplementedException();
+            _users.Remove(user);
+
+            return true;
         }
 
         public bool Save()
