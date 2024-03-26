@@ -8,6 +8,7 @@
 2. Run dotnest test command
 
 **Assignment: Building a Blogging Platform**
+
 You are tasked with building a simple blogging platform where users can create and view blog posts. The application should have a backend API developed in ASP.NET Core and use Entity Framework for data access
 
 **Requirements that I tried to implement:**
