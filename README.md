@@ -20,10 +20,10 @@
 
 3. API:
 1.	Create an API controller for managing blog posts.
-  a.	Implement CRUD (Create, Read, Update, Delete) operations for blog posts.
-  b.	Ensure that users can only edit/delete their own blog posts.
+   -	Implement CRUD (Create, Read, Update, Delete) operations for blog posts.
+   -	Ensure that users can only edit/delete their own blog posts.
 2.	Create an API controller for managing user profiles.
-  a.	Implement endpoints to retrieve user profiles and their associated blog posts.
+  -	Implement endpoints to retrieve user profiles and their associated blog posts.
 3.	Use appropriate HTTP methods (GET, POST, PUT, DELETE) and status codes.
 4.	Implement data validation and error handling in the API.
 
