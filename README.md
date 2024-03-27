@@ -1,11 +1,31 @@
 **Installation and running the app:**
-1. Pull the repository
-2. Seed data to the db
-3. Now you can run the application and test API manually or run unit tests for Remove and Edit posts methods (instruction below)
+1. Pull or download the repository
+2. Open Packet Manager Console in VSC and run the commands:
+   
+   ```
+   Add-Migration Migration
+   ```
+   Then:
+   ```
+   Update-Database
+   ```
+3. To seed data pen Terminal in this directory:
+   ```
+   ..\BloggingPlatform\BloggingPlatform
+   ```
+   And run:
+   ```
+   dotnet run seeddata
+   ```
+4. Now you can run the application and test API manually or run unit tests for Remove and Edit posts methods (instruction below)
 
-**Running the unit tests** 
+**Running unit tests** 
 1. Open powershell in BlogginPlatform.Tests directory
-2. Run dotnest test command
+2. Run this command:
+    
+   ```
+   dotnest test
+   ```
 
 **Assignment: Building a Blogging Platform**
 
