@@ -6,7 +6,7 @@ using BloggingPlatform.Dto;
 
 namespace BloggingPlatform.Controllers
 {
-    [Route("api/blogpostcontroller")]
+    [Route("api/blogpost")]
     [ApiController]
     public class BlogPostController : Controller
     {
@@ -21,7 +21,7 @@ namespace BloggingPlatform.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         [ProducesResponseType(200, Type = typeof(ICollection<BlogPost>))]
         public IActionResult GetBlogPosts()
         {
@@ -49,7 +49,7 @@ namespace BloggingPlatform.Controllers
             return Ok(post);
         }
 
-        [HttpGet("userPost/{userId}")]
+        [HttpGet("userPosts/{userId}")]
         [ProducesResponseType(200, Type = typeof(ICollection<BlogPost>))]
         [ProducesResponseType(400)]
         public IActionResult GetBlogPostsByUserId(int userId)

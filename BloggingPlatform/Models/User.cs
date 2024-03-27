@@ -7,7 +7,6 @@ namespace BloggingPlatform.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
-
         public string Email { get; set; }
         public List<BlogPost>? Posts { get; set; } = new List<BlogPost>(); 
     }

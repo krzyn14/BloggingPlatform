@@ -21,7 +21,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact]
-        public void BlogPostController_UpdatePost_ValidUser()
+        public void BlogPostController_UpdateBlogPost_ValidUser()
         {
             //Arange 
             var values = new BlogPostUpdateDto
@@ -41,7 +41,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact] 
-        public void BlogPostController_UpdatePost_InvalidUser()
+        public void BlogPostController_UpdateBlogPost_InvalidUser()
         {
             //Arrange 
             var values = new BlogPostUpdateDto
@@ -61,7 +61,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact]
-        public void BlogPostController_UpdatePost_UserNotExist()
+        public void BlogPostController_UpdateBlogPost_UserNotExist()
         {
             //Arrange 
             var values = new BlogPostUpdateDto
@@ -81,7 +81,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact] 
-        public void BlogPostController_UpdatePost_PostNotExist() 
+        public void BlogPostController_UpdateBlogPost_PostNotExist() 
         {
             //Arrange
             var values = new BlogPostUpdateDto
@@ -101,7 +101,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact] 
-        public void BlogPostController_RemovePost_ValidUser()
+        public void BlogPostController_RemoveBlogPost_ValidUser()
         {
             //Arrange 
             var postToDelete = 1;
@@ -115,7 +115,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact] 
-        public void BlogPostController_RemovePost_InvalidUser()
+        public void BlogPostController_RemoveBlogPost_InvalidUser()
         {
             //Arrange 
             var postToDelete = 1;
@@ -129,7 +129,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact]
-        public void BlogPostController_RemovePost_UserNotExist()
+        public void BlogPostController_RemoveBlogPost_UserNotExist()
         {
             //Arrange 
             var postToDelete = 1;
@@ -143,7 +143,7 @@ namespace BloggingPlatform.Tests
         }
 
         [Fact] 
-        public void PostController_RemovePost_PostNotExist() 
+        public void PostController_RemoveBlogPost_PostNotExist() 
         {
             //Arrange 
             var postToDelete = 100;

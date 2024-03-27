@@ -32,8 +32,6 @@ namespace BloggingPlatform
                 databaseContext.BlogPosts.AddRange(blogs);
 
                 databaseContext.SaveChanges();
-
-
             }
         }
     }

@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace BloggingPlatform.Controllers
 {
-    [Route("api/usercontroller")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : Controller
     {
@@ -18,7 +18,7 @@ namespace BloggingPlatform.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("getUsers")]
+        [HttpGet("all")]
         [ProducesResponseType(200, Type = typeof(ICollection<User>))]
         public IActionResult GetUsers()
         {
