@@ -9,7 +9,7 @@
    ```
    Update-Database
    ```
-3. To seed data open Terminal in this directory:
+3. To seed data open Terminal/Powershell in this directory:
    ```
    ..\BloggingPlatform\BloggingPlatform
    ```
@@ -20,7 +20,7 @@
 4. Now you can run the application and test API manually or run unit tests for Remove and Edit blog posts methods (instruction below)
 
 **Running unit tests** 
-1. Open powershell in BlogginPlatform.Tests directory
+1. Open Terminal/Powershell in BlogginPlatform.Tests directory
 2. Run this command:
     
    ```
